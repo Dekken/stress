@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/home/philix/app/tsung-1.7.0/share/tsung/tsung-1.0.dtd">
+<tsung loglevel="notice" version="1.0">
+
+  <clients>
+    <client host="localhost" cpu="4" maxusers="30000000" />
+  </clients>
+  
+  <servers>
+    <server host="localhost" port="80" type="tcp"></server>
+  </servers>
+
+  <load>
+   <arrivalphase phase="1" duration="1" unit="minute">
+     <users maxnumber="2000000" arrivalrate="32400" unit="second"></users>
+   </arrivalphase>
+  </load>
+
+ <sessions>
+  <session name="http" probability="100" type="ts_http">
+    <request> 
+      <http url="/index.html" method="GET" version="1.1"></http> 
+    </request>
+  </session>
+ </sessions>
+</tsung>
