@@ -1,0 +1,19 @@
+
+
+name: xfer
+
+
+profile:
+- name: base
+  dep:
+  - name: io.cereal
+  - name: mkn.ram
+
+- name: send
+  parent: base
+  main: send.cpp
+
+- name: receive
+  parent: base
+  main: receive.cpp
+
