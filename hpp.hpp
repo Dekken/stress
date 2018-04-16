@@ -5,16 +5,24 @@
 #include "kul/threads.hpp"
 #include "kul/signal.hpp"
 
+#include <cereal/cereal.hpp>
 #include <cereal/archives/portable_binary.hpp>
 
 const constexpr size_t PORT = 8080;
+const constexpr size_t SIZE = _KUL_TCP_READ_BUFFER_ - 666;
 
-enum class MessageType : uint16_t { NON = 0, REQUEST, RESPONSE };
+class Message{
+public:
+  bool last = 0;
+  size_t len = 0;
+  uint8_t c1[SIZE];
 
+  template <class Archive>
+  void serialize(Archive &ar) {
+    ar(last);
 
-class NodeMessage{
- private:
-  uint16_t segment = 0, segments = 0;
+    ar( cereal::make_size_tag( len ) );
 
-
+    ar( cereal::binary_data( c1, sizeof(uint8_t) * len ) );
+  }
 };
